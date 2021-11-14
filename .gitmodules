@@ -1,0 +1,8 @@
+[submodule ".vim/pack/vendor/opt/nord"]
+	path = .vim/pack/vendor/opt/nord
+	url = https://github.com/arcticicestudio/nord-vim.git
+	branch = master
+[submodule ".config/nord-xresources"]
+	path = .config/nord-xresources
+	url = https://github.com/arcticicestudio/nord-xresources.git
+	branch = master
