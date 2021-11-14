@@ -11,4 +11,4 @@
 	url = https://github.com/arcticicestudio/nord-tmux.git
 [submodule ".tmux/themes/srcery-tmux"]
 	path = .tmux/themes/srcery-tmux
-	url = https://github.com/srcery-colors/srcery-tmux/
+	url = https://github.com/srcery-colors/srcery-tmux.git
