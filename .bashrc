@@ -69,10 +69,6 @@ if [ -f ~/.bash_aliases ]; then
   . ~/.bash_aliases
 fi
 
-# Add sbin directories to PATH.  This is useful on systems that have sudo
-echo $PATH | grep -Eq "(^|:)/sbin(:|)"     || PATH=$PATH:/sbin
-echo $PATH | grep -Eq "(^|:)/usr/sbin(:|)" || PATH=$PATH:/usr/sbin
-
 if [ "$WINDOWID" != "" ]; then
   [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 fi
