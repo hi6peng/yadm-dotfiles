@@ -1,3 +1,5 @@
+. ~/.sh/inc/functions
+
 # {{{ Vars
 
 : "${OS:=$(uname -s)}"
@@ -95,15 +97,15 @@ APPS=$DATA/Apps
 # {{{ jdk, maven, nodejs, ant PATH
 
 JAVA_HOME=$APPS/jdk
-[ -d $JAVA_HOME ] && { export JAVA_HOME=$JAVA_HOME; appendpath $JAVA_HOME/bin; }
-[ -d $APPS/maven/bin ] && appendpath $APPS/maven/bin
-[ -d $APPS/nodejs/bin ] && appendpath $APPS/nodejs/bin
-[ -d $APPS/ant/bin ] && appendpath $APPS/ant/bin
-[ -d $HOME/.node_modules/bin ] && appendpath $HOME/.node_modules/bin
+[ -d $JAVA_HOME ] && { export JAVA_HOME=$JAVA_HOME; pathedit -p $JAVA_HOME/bin; }
+[ -d $APPS/maven/bin ] && pathedit -p $APPS/maven/bin
+[ -d $APPS/nodejs/bin ] && pathedit -p $APPS/nodejs/bin
+[ -d $APPS/ant/bin ] && pathedit -p $APPS/ant/bin
+[ -d $HOME/.node_modules/bin ] && pathedit -p $HOME/.node_modules/bin
 
 if command -v ruby >/dev/null 2>&1; then
   export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
-  appendpath $GEM_HOME
+  pathedit -p $GEM_HOME/bin
 fi
 
 export PATH
@@ -126,6 +128,14 @@ if [ -t 0 ]; then       # check for a terminal
   #/usr/games/fortune
 fi
 # End protected block
+
+# }}}
+
+# {{{ path
+
+# Add sbin directories to PATH.  This is useful on systems that have sudo
+pathedit -a "/sbin"
+pathedit -a "/usr/sbin"
 
 # }}}
 

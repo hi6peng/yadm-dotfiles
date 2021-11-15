@@ -1,0 +1,18 @@
+# {{{ pathedit
+
+pathedit()
+{
+  [ -z "$2" ] && return 2
+  PATH=$(printf ":$PATH:" | sed "s:\:$2\::\::g")
+  case $1 in
+    -p ) PATH=$2$PATH ;;
+    -a ) PATH=$PATH$2 ;;
+    -r ) ;;
+    * ) return 2 ;;
+  esac
+  PATH=$(printf "$PATH" | tr -s :) PATH=${PATH#:} PATH=${PATH%:}
+}
+
+# }}}
+
+# vim:filetype=sh:tabstop=2:shiftwidth=2:fdm=marker:
