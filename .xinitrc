@@ -53,11 +53,15 @@ if [ -r "$HOME/.xsession.local" ]; then
 fi
 
 # xfce4
-#exec xfce4-session || echo 'Failed to launch xfce4'
+#exec /usr/bin/ssh-agent xfce4-session || echo 'Failed to launch xfce4'
+exec startxfce4
 
 # openbox
-tint2 &
-#exec im-launch openbox-session || echo 'Failed to launch openbox'
-exec openbox-session || echo 'Failed to launch openbox'
+#tint2 &
+#exec /usr/bin/ssh-agent im-launch openbox-session || echo 'Failed to launch openbox'
+#exec /usr/bin/ssh-agent openbox-session || echo 'Failed to launch openbox'
+
+# if we got here, then exec failed
+exit 1
 
 # vim:ft=sh:sw=2:
