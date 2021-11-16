@@ -1,0 +1,5 @@
+[devppa] 
+fqdn = ppa.launchpad.dev:2121 
+method = ftp 
+incoming = ~%(devppa)s 
+login = anonymous
