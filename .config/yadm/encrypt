@@ -7,3 +7,4 @@
 .ssh/work_id_rsa
 .ssh/work_id_rsa.pub
 .gnupg/pubring.kbx
+.config/ss/ssconfig-just.json

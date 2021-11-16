@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Initialize/update submodules
+cd "${HOME}"
+echo "Initializing submodules..."
+yadm submodule update --init --recursive
+
+
+pip install --user https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
