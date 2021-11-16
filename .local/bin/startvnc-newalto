@@ -1,0 +1,38 @@
+#!/bin/sh -e
+PATH="/usr/bin:/usr/local/sbin:/usr/sbin"
+
+# The Username:Group that will run VNC
+XUSER="liupeng"
+
+# The display that VNC will use
+DISPLAY=":1"
+
+# Color depth (between 8 and 32)
+DEPTH="16"
+
+# The Desktop geometry to use.
+#GEOMETRY="<WIDTH>x<HEIGHT>"
+#GEOMETRY="800x600"
+GEOMETRY="1024x768"
+#GEOMETRY="1280x1024"
+
+# The name that the VNC Desktop will have.
+NAME="$XUSER-vnc-server"
+OPTIONS="-name ${NAME} -depth ${DEPTH} -geometry ${GEOMETRY} ${DISPLAY}"
+
+case "$1" in
+start)
+su - ${XUSER} -c "/usr/bin/vncserver ${OPTIONS}"
+;;
+
+stop)
+su - ${XUSER} -c "/usr/bin/vncserver -kill ${DISPLAY}"
+;;
+
+restart)
+$0 stop
+$0 start
+;;
+esac
+
+exit 0
