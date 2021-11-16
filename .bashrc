@@ -1,3 +1,6 @@
+[[ "${_NAME_OF_THIS_LIBSCRIPT:-""}" == "yes" ]] && return 0
+_NAME_OF_THIS_LIBSCRIPT=yes
+
 # {{{ Umask
 
 umask 0022
