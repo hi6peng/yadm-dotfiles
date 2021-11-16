@@ -1,6 +1,12 @@
-export XMODIFIERS="@im=fcitx"
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export QT4_IM_MODULE=fcitx
-export CLUTTER_IM_MODULE=fcitx
-fcitx -d
+if [ "$IM_CONFIG_PHASE" = 2 ]; then
+  # start fcitx daemon
+  /usr/bin/fcitx -d 2> /dev/null &
+fi
+
+if [ "$IM_CONFIG_PHASE" = 1 ]; then
+  XMODIFIERS=@im=fcitx
+  GTK_IM_MODULE=fcitx
+  QT4_IM_MODULE=fcitx
+  QT_IM_MODULE=fcitx
+  CLUTTER_IM_MODULE=fcitx
+fi

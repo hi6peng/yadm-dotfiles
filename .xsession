@@ -9,6 +9,9 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
+STARTUP=startxfce4
+#STARTUP=openbox-session
+
 exec >"$HOME/.xsession.log" 2>&1
 umask 0022
 
@@ -43,8 +46,11 @@ fi
 #  unset f
 #fi
 
-if [ -r "$HOME/.xinputrc" ]; then
-  . $HOME/.xinputrc
+#if [ -r "$HOME/.xinputrc" ]; then
+#  . $HOME/.xinputrc
+#fi
+if [ -r "/etc/X11/Xsession.d/70im-config_launch" ]; then
+  . /etc/X11/Xsession.d/70im-config_launch
 fi
 
 # Local startup script
@@ -52,14 +58,11 @@ if [ -r "$HOME/.xsession.local" ]; then
   . "$HOME/.xsession.local"
 fi
 
-# xfce4
-#exec /usr/bin/ssh-agent xfce4-session || echo 'Failed to launch xfce4'
-exec startxfce4
-
 # openbox
-#tint2 &
-#exec /usr/bin/ssh-agent im-launch openbox-session || echo 'Failed to launch openbox'
-#exec /usr/bin/ssh-agent openbox-session || echo 'Failed to launch openbox'
+echo $STARTUP | grep -q 'openbox-session' && tint2 &
+
+exec $STARTUP
+#exec /usr/bin/ssh-agent $STARTUP
 
 # if we got here, then exec failed
 exit 1
