@@ -7,3 +7,4 @@ yadm submodule update --init --recursive
 
 
 pip install --user https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
+pip install --user trash-cli
