@@ -53,6 +53,13 @@ if [ -r "/etc/X11/Xsession.d/70im-config_launch" ]; then
   . /etc/X11/Xsession.d/70im-config_launch
 fi
 
+os_type="$(grep -oP "^ID=\"\K.*?(?=\")" /etc/os-release)";
+if [[ "${os_type}" == 'opensuse-leap' ]]; then
+  XIMFILE=/etc/X11/xim
+  test -r $HOME/.xim && XIMFILE=$HOME/.xim
+  test -r $XIMFILE  && source $XIMFILE
+fi
+
 # Local startup script
 if [ -r "$HOME/.xsession.local" ]; then
   . "$HOME/.xsession.local"
