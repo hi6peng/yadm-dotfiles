@@ -9,3 +9,4 @@
 .gnupg/pubring.kbx
 .config/ss/ssconfig-just.json
 .proxychains/proxychains4.conf
+.ssh/config
