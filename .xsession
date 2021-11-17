@@ -9,7 +9,7 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
-STARTUP=startxfce4
+STARTUP=xfce4-session
 #STARTUP=openbox-session
 
 exec >"$HOME/.xsession.log" 2>&1
