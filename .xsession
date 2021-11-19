@@ -70,10 +70,10 @@ if which dbus-update-activation-environment >/dev/null 2>&1; then
 fi
 
 os_type="$(grep -oP "^ID=\"\K.*?(?=\")" /etc/os-release)";
-if [[ "${os_type}" == 'opensuse-leap' ]]; then
+if [ "${os_type}" = 'opensuse-leap' ]; then
   XIMFILE=/etc/X11/xim
   test -r $HOME/.xim && XIMFILE=$HOME/.xim
-  test -r $XIMFILE  && source $XIMFILE
+  test -r $XIMFILE && source $XIMFILE
 fi
 
 # Local startup script
