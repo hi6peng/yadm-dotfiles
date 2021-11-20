@@ -1,0 +1,55 @@
+#!/bin/sh
+
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+
+vncconfig -iconic &
+
+#exec /etc/X11/xinit/xinitrc
+
+export XDG_RUNTIME_DIR=$HOME/.run/
+
+#export GTK_IM_MODULE="fcitx"
+#export QT_IM_MODULE="fcitx"
+#export XMODIFIERS="@im=fcitx"
+#fcitx
+
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+xsetroot -solid grey
+
+if [ -r "/etc/X11/Xsession.d/70im-config_launch" ]; then
+  . /etc/X11/Xsession.d/70im-config_launch
+fi
+
+if [ "x$DESKTOP_SESSION" = "xxfce" ] || [ "x$XDG_SESSION_DESKTOP" = "xxfce" ]; then
+  # Workaround clutter issue (LP: #1462445)
+  export CLUTTER_BACKEND=x11
+
+  export XMODIFIERS=@im=fcitx
+  export GTK_IM_MODULE=fcitx
+  export QT4_IM_MODULE=fcitx
+  export QT_IM_MODULE=fcitx
+  export CLUTTER_IM_MODULE=fcitx
+fi
+
+systemctl --user import-environment XMODIFIERS GTK_IM_MODULE QT4_IM_MODULE QT_IM_MODULE CLUTTER_IM_MODULE
+if which dbus-update-activation-environment >/dev/null 2>&1; then
+  dbus-update-activation-environment XMODIFIERS GTK_IM_MODULE QT4_IM_MODULE QT_IM_MODULE CLUTTER_IM_MODULE
+fi
+
+os_type="$(grep -oP "^ID=\"\K.*?(?=\")" /etc/os-release)";
+if [ "${os_type}" = 'opensuse-leap' ]; then
+  XIMFILE=/etc/X11/xim
+  test -r $HOME/.xim && XIMFILE=$HOME/.xim
+  test -r $XIMFILE && source $XIMFILE
+fi
+
+#start-pulseaudio-x11
+
+eval `ssh-agent`
+tint2 &
+#/usr/bin/openbox-session
+dbus-launch --exit-with-session openbox-session
+
+# if we got here, then exec failed
+exit 1
