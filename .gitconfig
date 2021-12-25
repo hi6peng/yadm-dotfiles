@@ -1,6 +1,7 @@
 [core]
 	editor = vim
 	excludesfile = ~/.gitignore
+	safecrlf = true
 [alias]
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short  
 	xlog = log --oneline --decorate
