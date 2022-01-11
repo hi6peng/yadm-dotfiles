@@ -3,6 +3,7 @@ PATH="/usr/bin:/usr/local/sbin:/usr/sbin"
 
 # The Username:Group that will run VNC
 XUSER="liupeng"
+VNCSERVER=/usr/bin/vncserver
 
 # The display that VNC will use
 DISPLAY=":1"
@@ -22,11 +23,25 @@ OPTIONS="-name ${NAME} -depth ${DEPTH} -geometry ${GEOMETRY} ${DISPLAY}"
 
 case "$1" in
 start)
-su - ${XUSER} -c "/usr/bin/vncserver ${OPTIONS}"
+if sudo -Hu "$XUSER" xdpyinfo -display "$DISPLAY" > /dev/null 2>&1; then
+    echo "user $XUSER can connect to display $DISPLAY"
+    exit 1
+else
+    echo "user $XUSER cannot connect to display $DISPLAY"
+fi
+#su - ${XUSER} -c "$VNCSERVER ${OPTIONS}"
+sudo -Hu ${XUSER} $VNCSERVER ${OPTIONS}
 ;;
 
 stop)
-su - ${XUSER} -c "/usr/bin/vncserver -kill ${DISPLAY}"
+if sudo -Hu "$XUSER" xdpyinfo -display "$DISPLAY" > /dev/null 2>&1; then
+    echo "user $XUSER can connect to display $DISPLAY"
+else
+    echo "user $XUSER cannot connect to display $DISPLAY"
+    exit 1
+fi
+#su - ${XUSER} -c "$VNCSERVER -kill ${DISPLAY}"
+sudo -Hu ${XUSER} $VNCSERVER -kill ${DISPLAY}
 ;;
 
 restart)
