@@ -23,7 +23,7 @@ export PATH
 
 # {{{ Locale
 
-LOCALE="zh_CN.UTF-8"
+LOCALE="en_US.UTF-8"
 LANG="${LOCALE}"
 # LC_ALL="${LOCALE}"
 LC_COLLATE="${LOCALE}"
