@@ -1,12 +1,1 @@
-.ssh/Git-Admin
-.ssh/Git-Admin.pub
-.ssh/gitlab_isa
-.ssh/gitlab_isa.pub
-.ssh/home_id_rsa
-.ssh/home_id_rsa.pub
-.ssh/work_id_rsa
-.ssh/work_id_rsa.pub
-.gnupg/pubring.kbx
-.config/ss/ssconfig-just.json
 .proxychains/proxychains4.conf
-.ssh/config
