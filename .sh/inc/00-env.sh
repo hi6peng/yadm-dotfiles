@@ -101,7 +101,7 @@ JAVA_HOME=$APPS/jdk
 [ -d $APPS/maven/bin ] && pathedit -p $APPS/maven/bin
 [ -d $APPS/nodejs/bin ] && pathedit -p $APPS/nodejs/bin
 [ -d $APPS/ant/bin ] && pathedit -p $APPS/ant/bin
-[ -d $HOME/.node_modules/bin ] && pathedit -p $HOME/.node_modules/bin
+[ -d $HOME/.npm-global/bin ] && pathedit -p $HOME/.npm-global/bin
 
 if command -v ruby >/dev/null 2>&1; then
   export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
