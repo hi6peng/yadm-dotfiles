@@ -116,6 +116,7 @@ export PATH
 
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/workspace/sublime
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 
 # }}}
 
