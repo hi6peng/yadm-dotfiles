@@ -9,6 +9,8 @@
 [submodule ".tmux/themes/nord-tmux"]
 	path = .tmux/themes/nord-tmux
 	url = https://github.com/arcticicestudio/nord-tmux.git
+	ignore = dirty
 [submodule ".tmux/themes/srcery-tmux"]
 	path = .tmux/themes/srcery-tmux
 	url = https://github.com/srcery-colors/srcery-tmux.git
+	ignore = dirty
