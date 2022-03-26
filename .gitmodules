@@ -2,11 +2,6 @@
 	path = .vim/pack/vendor/opt/nord
 	url = https://github.com/arcticicestudio/nord-vim.git
 	branch = master
-[submodule ".config/nord-xresources"]
-	path = .config/nord-xresources
-	url = https://github.com/arcticicestudio/nord-xresources.git
-	branch = master
-        ignore = dirty
 [submodule ".tmux/themes/nord-tmux"]
 	path = .tmux/themes/nord-tmux
 	url = https://github.com/arcticicestudio/nord-tmux.git
@@ -14,4 +9,8 @@
 [submodule ".tmux/themes/srcery-tmux"]
 	path = .tmux/themes/srcery-tmux
 	url = https://github.com/srcery-colors/srcery-tmux.git
+	ignore = dirty
+[submodule ".config/nord-xresources"]
+	path = .config/nord-xresources
+	url = https://github.com/arcticicestudio/nord-xresources.git
 	ignore = dirty
