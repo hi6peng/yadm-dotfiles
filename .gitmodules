@@ -6,6 +6,7 @@
 	path = .config/nord-xresources
 	url = https://github.com/arcticicestudio/nord-xresources.git
 	branch = master
+        ignore = dirty
 [submodule ".tmux/themes/nord-tmux"]
 	path = .tmux/themes/nord-tmux
 	url = https://github.com/arcticicestudio/nord-tmux.git
