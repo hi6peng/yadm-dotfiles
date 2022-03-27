@@ -44,6 +44,9 @@ VISUAL="vi"
 if command -v vim >/dev/null 2>&1; then
   EDITOR="vim"
   VISUAL="vim"
+  alias vi="vim"
+else
+  alias vim="vi"
 fi
 export EDITOR VISUAL
 
