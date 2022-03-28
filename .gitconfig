@@ -17,3 +17,5 @@
 [user]
 	name = 6peng
 	email = 6peng@protonmail.com
+[init]
+	defaultBranch = main
