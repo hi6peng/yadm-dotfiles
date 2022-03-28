@@ -78,6 +78,10 @@ fi
 
 [ -r /usr/share/kysec-auth/kysec_env.sh ] && . /usr/share/kysec-auth/kysec_env.sh
 
+shopt -s histappend
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+
+[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 # }}}
 
 # vim:filetype=bash:tabstop=2:shiftwidth=2:fdm=marker:
