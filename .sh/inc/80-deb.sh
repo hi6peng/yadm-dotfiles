@@ -1,3 +1,3 @@
 DEBEMAIL="liupeng@kylinos.cn"
-DEBFULLNAME="liupeng"
+DEBFULLNAME="6peng"
 export DEBEMAIL DEBFULLNAME
