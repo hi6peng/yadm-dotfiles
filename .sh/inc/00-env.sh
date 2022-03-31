@@ -44,6 +44,9 @@ VISUAL="vi"
 if command -v vim >/dev/null 2>&1; then
   EDITOR="vim"
   VISUAL="vim"
+  alias vi="vim"
+else
+  alias vim="vi"
 fi
 export EDITOR VISUAL
 
@@ -139,5 +142,7 @@ pathedit -a "/sbin"
 pathedit -a "/usr/sbin"
 
 # }}}
+
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 # vim:filetype=sh:tabstop=2:shiftwidth=2:fdm=marker:

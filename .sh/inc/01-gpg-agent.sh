@@ -1,13 +1,13 @@
 # {{{ terminal
 
-# use-gpg-agent-for-ssh
+# use_gpg_agent_for_ssh
 ########################################
 # Set things up for using gpg-agent
 
 export GPG_TTY=$(tty)
 alias gpg=gpg2
 
-function use-gpg-agent-for-ssh {
+use_gpg_agent_for_ssh() {
   SOCK="$( gpgconf --list-dirs agent-ssh-socket )"
   if [[ -n "${SOCK:-}" ]]
   then
@@ -16,7 +16,7 @@ function use-gpg-agent-for-ssh {
   fi
 }
 
-#use-gpg-agent-for-ssh
+#use_gpg_agent_for_ssh
 
 # }}}
 

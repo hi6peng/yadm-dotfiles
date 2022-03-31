@@ -1,5 +1,5 @@
 [core]
-	editor = vim
+	editor = vim.tiny
 	excludesfile = ~/.gitignore
 	safecrlf = true
 [alias]
@@ -17,3 +17,5 @@
 [user]
 	name = 6peng
 	email = 6peng@protonmail.com
+[init]
+	defaultBranch = main
