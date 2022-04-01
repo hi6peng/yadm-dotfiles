@@ -9,10 +9,14 @@ umask 0022
 
 # {{{ Includes
 
-for file in "${HOME}/.sh/inc"/[0-9]*.sh; do
-  # shellcheck source=/dev/null
-  . "${file}"
-done
+if [ -d ~/.sh/inc ]; then
+  for rc in "${HOME}/.sh/inc"/[0-9]*.sh; do
+    # shellcheck source=/dev/null
+		if [ -f "$rc" ]; then
+      . "$rc"
+		fi
+  done
+fi
 
 # }}}
 
