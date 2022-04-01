@@ -49,6 +49,7 @@ fi
 #if [ -r "$HOME/.xinputrc" ]; then
 #  . $HOME/.xinputrc
 #fi
+#ubuntu
 if [ -r "/etc/X11/Xsession.d/70im-config_launch" ]; then
   . /etc/X11/Xsession.d/70im-config_launch
 fi
