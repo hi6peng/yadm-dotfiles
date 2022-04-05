@@ -145,4 +145,6 @@ pathedit -a "/usr/sbin"
 
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
+export ALIYUNPAN_CONFIG_DIR=$HOME/.config/aliyunpan
+
 # vim:filetype=sh:tabstop=2:shiftwidth=2:fdm=marker:
