@@ -3,3 +3,9 @@ fqdn = ppa.launchpad.dev:2121
 method = ftp 
 incoming = ~%(devppa)s 
 login = anonymous
+
+[lp-qt571] 
+fqdn = ppa.launchpad.net
+method = ftp 
+incoming = ~liupeng/ubuntu/qt571/
+login = anonymous
