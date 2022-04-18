@@ -7,6 +7,12 @@ mkdir ~/.vim_tmp
 APPS=$DATA/Apps
 
 [ -f $APPS/aliyunpan/aliyunpan ] && ln -s $APPS/aliyunpan/aliyunpan ~/.local/bin/
+(
+crontab -l
+cat <<EOF
+@hourly ALIYUNPAN_CONFIG_DIR=$HOME/.config/aliyunpan $APPS/aliyunpan/aliyunpan token update
+EOF
+) | crontab -
 
 # Initialize/update submodules
 cd "${HOME}"
