@@ -1,3 +1,27 @@
+os=$(cat /etc/os-release | awk -F '=' '/^NAME/{print $2}' | awk '{print $1}' | tr -d '"')
+
+if [ $os = "Ubuntu" ];then
+run_im fcitx
+else # "fedora"
+XIM=fcitx
+XIM_PROGRAM=/usr/bin/fcitx
+ICON="/usr/share/pixmaps/fcitx.png"
+XIM_ARGS="-D"
+PREFERENCE_PROGRAM=/usr/bin/fcitx-configtool
+SHORT_DESC="FCITX"
+GTK_IM_MODULE=fcitx
+if test -f /usr/lib/qt4/plugins/inputmethods/qtim-fcitx.so || \
+   test -f /usr/lib64/qt4/plugins/inputmethods/qtim-fcitx.so || \
+   test -f /usr/lib/qt5/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin.so || \
+   test -f /usr/lib64/qt5/plugins/platforminputcontexts/libfcitxplatforminputcontextplugin.so;
+then
+    QT_IM_MODULE=fcitx
+else
+    QT_IM_MODULE=xim
+fi
+fi
+
+if false;then
 if [ "$IM_CONFIG_PHASE" = 2 ]; then
   # start fcitx daemon
   /usr/bin/fcitx -d 2> /dev/null &
@@ -9,4 +33,5 @@ if [ "$IM_CONFIG_PHASE" = 1 ]; then
   QT4_IM_MODULE=fcitx
   QT_IM_MODULE=fcitx
   CLUTTER_IM_MODULE=fcitx
+fi
 fi
