@@ -5,7 +5,9 @@
 # Set things up for using gpg-agent
 
 export GPG_TTY=$(tty)
-alias gpg=gpg2
+if command -v gpg2 >/dev/null 2>&1; then
+  alias gpg=gpg2
+fi
 
 use_gpg_agent_for_ssh() {
   SOCK="$( gpgconf --list-dirs agent-ssh-socket )"
