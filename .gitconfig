@@ -17,5 +17,6 @@
 [user]
 	name = 6peng
 	email = 6peng@proton.me
+	signingKey = F577499F08B835ECE9DC21CDF654C05EA55F4689
 [init]
 	defaultBranch = main
