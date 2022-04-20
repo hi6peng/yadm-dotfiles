@@ -111,6 +111,11 @@ if command -v ruby >/dev/null 2>&1; then
   pathedit -p $GEM_HOME/bin
 fi
 
+if command -v go >/dev/null 2>&1; then
+  export GOPATH=$HOME/.go
+  pathedit -p $GOPATH/bin
+fi
+
 export PATH
 
 # }}}
