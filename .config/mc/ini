@@ -1,0 +1,8 @@
+[Midnight-Commander]
+# for 8/16 color..
+skin=default
+# for 256 color..
+#skin=julia256
+#skin=xoria256
+#skin=yadt256
+skin=yadt256-defbg
