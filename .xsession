@@ -9,7 +9,12 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
-STARTUP=xfce4-session
+SESSION=${1:-xfce}
+STARTUP=$SESSION
+if [ $STARTUP == "--" ];then
+  SESSION=xfce
+  STARTUP=xfce4-session
+fi
 #STARTUP=openbox-session
 
 exec >"$HOME/.xsession.log" 2>&1
@@ -35,6 +40,7 @@ fi
 
 if type xhost >/dev/null 2>&1; then
   xhost +si:localuser:$(id -un) || :
+  xhost +local:root > /dev/null 2>&1
 fi
 
 # start some nice programs
@@ -85,7 +91,34 @@ fi
 # openbox
 echo $STARTUP | grep -q 'openbox-session' && tint2 &
 
-exec $STARTUP
+get_session(){
+  #local dbus_args=(--sh-syntax --exit-with-session)
+  local dbus_args=(--sh-syntax)
+  case "$1" in
+    awesome) dbus_args+=(awesome) ;;
+    bspwm) dbus_args+=(bspwm-session) ;;
+    budgie) dbus_args+=(budgie-desktop) ;;
+    cinnamon) dbus_args+=(cinnamon-session) ;;
+    deepin) dbus_args+=(startdde) ;;
+    enlightenment) dbus_args+=(enlightenment_start) ;;
+    fluxbox) dbus_args+=(startfluxbox) ;;
+    gnome) dbus_args+=(gnome-session) ;;
+    i3|i3wm) dbus_args+=(i3 --shmlog-size 0) ;;
+    jwm) dbus_args+=(jwm) ;;
+    kde) dbus_args+=(startplasma-x11) ;;
+    lxde) dbus_args+=(startlxde) ;;
+    lxqt) dbus_args+=(lxqt-session) ;;
+    mate) dbus_args+=(mate-session) ;;
+    xfce) dbus_args+=(xfce4-session) ;;
+    openbox) dbus_args+=(openbox-session) ;;
+    *) dbus_args+=("$1") ;;
+  esac
+
+  echo "dbus-launch ${dbus_args[*]}"
+}
+
+exec $(get_session "$SESSION")
+#exec $STARTUP
 #exec /usr/bin/ssh-agent $STARTUP
 
 # if we got here, then exec failed
