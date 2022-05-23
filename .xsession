@@ -89,7 +89,9 @@ if [ -r "$HOME/.xsession.local" ]; then
 fi
 
 # openbox
-echo $STARTUP | grep -q 'openbox-session' && tint2 &
+if command -v tint2 >/dev/null 2>&1; then
+  echo $STARTUP | ( grep -q 'openbox-session' && tint2 & )
+fi
 
 get_session(){
   #local dbus_args=(--sh-syntax --exit-with-session)
