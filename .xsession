@@ -71,6 +71,11 @@ if [ "x$DESKTOP_SESSION" = "xxfce" ] || [ "x$XDG_SESSION_DESKTOP" = "xxfce" ]; t
   export CLUTTER_IM_MODULE=fcitx
 fi
 
+# launches a session dbus instance
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ] && type dbus-launch >/dev/null; then
+  eval `dbus-launch --sh-syntax --exit-with-session`
+fi
+
 # Load systemd-user.sh
 if [ -f /etc/X11/xinit/xinitrc.d/50-systemd-user.sh ]; then
   . /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
@@ -93,11 +98,6 @@ if [ -r "$HOME/.xsession.local" ]; then
   . "$HOME/.xsession.local"
 fi
 
-# launches a session dbus instance
-if [ -z "$DBUS_SESSION_BUS_ADDRESS" ] && type dbus-launch >/dev/null; then
-  eval `dbus-launch --sh-syntax --exit-with-session`
-fi
-
 # Start GNOME Keyring
 if [ -n "$DESKTOP_SESSION" ] && command -v /usr/bin/gnome-keyring-daemon >/dev/null 2>&1; then
   eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)
@@ -110,28 +110,27 @@ if command -v tint2 >/dev/null 2>&1; then
 fi
 
 get_session(){
-  local dbus_args=(--sh-syntax --exit-with-session)
   case "$1" in
-    awesome) dbus_args+=(awesome) ;;
-    bspwm) dbus_args+=(bspwm-session) ;;
-    budgie) dbus_args+=(budgie-desktop) ;;
-    cinnamon) dbus_args+=(cinnamon-session) ;;
-    deepin) dbus_args+=(startdde) ;;
-    enlightenment) dbus_args+=(enlightenment_start) ;;
-    fluxbox) dbus_args+=(startfluxbox) ;;
-    gnome) dbus_args+=(gnome-session) ;;
-    i3|i3wm) dbus_args+=(i3 --shmlog-size 0) ;;
-    jwm) dbus_args+=(jwm) ;;
-    kde) dbus_args+=(startplasma-x11) ;;
-    lxde) dbus_args+=(startlxde) ;;
-    lxqt) dbus_args+=(lxqt-session) ;;
-    mate) dbus_args+=(mate-session) ;;
-    xfce) dbus_args+=(xfce4-session) ;;
-    openbox) dbus_args+=(openbox-session) ;;
-    *) dbus_args+=("$1") ;;
+    awesome) xsession="awesome" ;;
+    bspwm) xsession="bspwm-session" ;;
+    budgie) xsession="budgie-desktop" ;;
+    cinnamon) xsession="cinnamon-session" ;;
+    deepin) xsession="startdde" ;;
+    enlightenment) xsession="enlightenment_start" ;;
+    fluxbox) xsession="startfluxbox" ;;
+    gnome) xsession="gnome-session" ;;
+    i3|i3wm) xsession="i3 --shmlog-size 0" ;;
+    jwm) xsession="jwm" ;;
+    kde) xsession="startplasma-x11" ;;
+    lxde) xsession="startlxde" ;;
+    lxqt) xsession="lxqt-session" ;;
+    mate) xsession="mate-session" ;;
+    xfce) xsession="xfce4-session" ;;
+    openbox) xsession="openbox-session" ;;
+    *) xsession="$1" ;;
   esac
 
-  echo "dbus-launch ${dbus_args[*]}"
+  echo "$xsession"
 }
 
 exec $(get_session "$SESSION")
