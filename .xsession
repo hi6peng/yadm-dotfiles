@@ -71,9 +71,14 @@ if [ "x$DESKTOP_SESSION" = "xxfce" ] || [ "x$XDG_SESSION_DESKTOP" = "xxfce" ]; t
   export CLUTTER_IM_MODULE=fcitx
 fi
 
-systemctl --user import-environment XMODIFIERS GTK_IM_MODULE QT4_IM_MODULE QT_IM_MODULE CLUTTER_IM_MODULE
-if which dbus-update-activation-environment >/dev/null 2>&1; then
-  dbus-update-activation-environment XMODIFIERS GTK_IM_MODULE QT4_IM_MODULE QT_IM_MODULE CLUTTER_IM_MODULE
+# Load systemd-user.sh
+if [ -f /etc/X11/xinit/xinitrc.d/50-systemd-user.sh ]; then
+  . /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
+else
+  systemctl --user import-environment XMODIFIERS GTK_IM_MODULE QT4_IM_MODULE QT_IM_MODULE CLUTTER_IM_MODULE
+  if which dbus-update-activation-environment >/dev/null 2>&1; then
+    dbus-update-activation-environment XMODIFIERS GTK_IM_MODULE QT4_IM_MODULE QT_IM_MODULE CLUTTER_IM_MODULE
+  fi
 fi
 
 os_type="$(grep -oP "^ID=\"\K.*?(?=\")" /etc/os-release)";
@@ -88,14 +93,24 @@ if [ -r "$HOME/.xsession.local" ]; then
   . "$HOME/.xsession.local"
 fi
 
+# launches a session dbus instance
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ] && type dbus-launch >/dev/null; then
+  eval `dbus-launch --sh-syntax --exit-with-session`
+fi
+
+# Start GNOME Keyring
+if [ -n "$DESKTOP_SESSION" ] && command -v /usr/bin/gnome-keyring-daemon >/dev/null 2>&1; then
+  eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)
+  export SSH_AUTH_SOCK
+fi
+
 # openbox
 if command -v tint2 >/dev/null 2>&1; then
   echo $STARTUP | ( grep -q 'openbox-session' && tint2 & )
 fi
 
 get_session(){
-  #local dbus_args=(--sh-syntax --exit-with-session)
-  local dbus_args=(--sh-syntax)
+  local dbus_args=(--sh-syntax --exit-with-session)
   case "$1" in
     awesome) dbus_args+=(awesome) ;;
     bspwm) dbus_args+=(bspwm-session) ;;
