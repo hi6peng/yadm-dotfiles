@@ -11,7 +11,7 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 
 SESSION=${1:-xfce}
 STARTUP=$SESSION
-if [ $STARTUP == "--" ];then
+if [ "$STARTUP" = "--" ];then
   SESSION=xfce
   STARTUP=xfce4-session
 fi
