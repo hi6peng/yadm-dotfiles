@@ -46,8 +46,8 @@ fi
 
 #start-pulseaudio-x11
 
-eval `ssh-agent`
-#tint2 &
+#eval `ssh-agent`
+#command -v tint2 >/dev/null && command tint2 "$@"
 #dbus-launch --exit-with-session openbox-session
 dbus-launch --exit-with-session icewm-session
 
