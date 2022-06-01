@@ -17,11 +17,10 @@ if [ "$STARTUP" = "--" ];then
 fi
 #STARTUP=openbox-session
 
-exec >"$HOME/.xsession.log" 2>&1
+exec >$HOME/.xsession.log 2>&1
 umask 0022
 
 # merge in defaults and keymaps
-
 if [ -r $sysresources ]; then
   xrdb -merge $sysresources
 fi
@@ -38,13 +37,7 @@ if [ -r "$usermodmap" ]; then
   xmodmap "$usermodmap"
 fi
 
-if type xhost >/dev/null 2>&1; then
-  xhost +si:localuser:$(id -un) || :
-  xhost +local:root > /dev/null 2>&1
-fi
-
 # start some nice programs
-
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
   for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
     [ -x "$f" ] && . "$f"
@@ -52,56 +45,23 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
   unset f
 fi
 
-#if [ -r "$HOME/.xinputrc" ]; then
-#  . $HOME/.xinputrc
-#fi
-#ubuntu
-if [ -r "/etc/X11/Xsession.d/70im-config_launch" ]; then
-  . /etc/X11/Xsession.d/70im-config_launch
-fi
-
-if [ "x$DESKTOP_SESSION" = "xxfce" ] || [ "x$XDG_SESSION_DESKTOP" = "xxfce" ]; then
-  # Workaround clutter issue (LP: #1462445)
-  export CLUTTER_BACKEND=x11
-
-  export XMODIFIERS=@im=fcitx
-  export GTK_IM_MODULE=fcitx
-  export QT4_IM_MODULE=fcitx
-  export QT_IM_MODULE=fcitx
-  export CLUTTER_IM_MODULE=fcitx
-fi
-
-# launches a session dbus instance
-if [ -z "$DBUS_SESSION_BUS_ADDRESS" ] && type dbus-launch >/dev/null; then
-  eval `dbus-launch --sh-syntax --exit-with-session`
-fi
-
-# Load systemd-user.sh
-if [ -f /etc/X11/xinit/xinitrc.d/50-systemd-user.sh ]; then
-  . /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
-else
-  systemctl --user import-environment XMODIFIERS GTK_IM_MODULE QT4_IM_MODULE QT_IM_MODULE CLUTTER_IM_MODULE
-  if which dbus-update-activation-environment >/dev/null 2>&1; then
-    dbus-update-activation-environment XMODIFIERS GTK_IM_MODULE QT4_IM_MODULE QT_IM_MODULE CLUTTER_IM_MODULE
+for i in $HOME/.sh/xinitrc.d/?* ; do
+  [ -d $i ] && continue
+  if [ -x $i ]; then
+    if grep -q "# to be sourced" $i; then
+      . $i "${SESSION}"
+    else
+      $i "${SESSION}" &
+    fi
   fi
-fi
-
-os_type="$(grep -oP "^ID=\"\K.*?(?=\")" /etc/os-release)";
-if [ "${os_type}" = 'opensuse-leap' ]; then
-  XIMFILE=/etc/X11/xim
-  test -r $HOME/.xim && XIMFILE=$HOME/.xim
-  test -r $XIMFILE && source $XIMFILE
-fi
+  unset i
+done
 
 # Local startup script
-if [ -r "$HOME/.xsession.local" ]; then
-  . "$HOME/.xsession.local"
-fi
-
-# Start GNOME Keyring
-if [ -n "$DESKTOP_SESSION" ] && command -v /usr/bin/gnome-keyring-daemon >/dev/null 2>&1; then
-  eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)
-  export SSH_AUTH_SOCK
+if [ -r $HOME/.xsession.local ]; then
+  if grep -q "# to be sourced" $HOME/.xsession.local; then
+    . $HOME/.xsession.local
+  fi
 fi
 
 # openbox

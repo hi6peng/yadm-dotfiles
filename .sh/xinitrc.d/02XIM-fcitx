@@ -1,0 +1,12 @@
+#!/usr/bin/sh
+# to be sourced
+if [ "x$DESKTOP_SESSION" = "xxfce" ] || [ "x$XDG_SESSION_DESKTOP" = "xxfce" ]; then
+  # Workaround clutter issue (LP: #1462445)
+  export CLUTTER_BACKEND=x11
+
+  export XMODIFIERS=@im=fcitx
+  export GTK_IM_MODULE=fcitx
+  export QT4_IM_MODULE=fcitx
+  export QT_IM_MODULE=fcitx
+  export CLUTTER_IM_MODULE=fcitx
+fi
