@@ -16,7 +16,7 @@ fi
 if [ -x /usr/libexec/path_helper ]; then
   eval "$(/usr/libexec/path_helper -s)"
 fi
-PATH="${HOME}/.local/bin:${PATH}"
+PATH="$HOME/.local/bin:$PATH"
 export PATH
 
 # }}}

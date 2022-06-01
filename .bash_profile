@@ -1,6 +1,6 @@
 # {{{ Bashrc
 
-. "${HOME}/.bashrc"
+. $HOME/.bashrc
 
 # }}}
 

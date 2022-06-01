@@ -16,7 +16,7 @@ VNCSERVER=0vncserver
 XVNCSERVER="/usr/bin/x$VNCSERVER"
 
 # Set home directory
-HOMEDIR=${HOME}
+HOMEDIR=$HOME
 
 # Default VNC User directory
 VNCDIR="${HOMEDIR}/.vnc"

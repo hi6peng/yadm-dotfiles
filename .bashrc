@@ -10,11 +10,12 @@ umask 0022
 # {{{ Includes
 
 if [ -d ~/.sh/inc ]; then
-  for rc in "${HOME}/.sh/inc"/[0-9]*.sh; do
+  for rc in $HOME/.sh/inc/[0-9]*.sh; do
     # shellcheck source=/dev/null
 		if [ -f "$rc" ]; then
       . "$rc"
 		fi
+		unset rc
   done
 fi
 
@@ -34,7 +35,7 @@ fi
 
 # {{{ History
 
-HISTFILE="${HOME}/.bash_history"
+HISTFILE=$HOME/.bash_history
 HISTFILESIZE=5000
 HISTSIZE=5000
 HISTCONTROL=ignoredups

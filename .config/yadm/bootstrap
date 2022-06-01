@@ -17,7 +17,7 @@ EOF
 cp -f ~/.xxinputrc ~/.xinputrc
 
 # Initialize/update submodules
-cd "${HOME}"
+cd $HOME
 echo "Initializing submodules..."
 yadm submodule update --init --recursive
 
