@@ -3,21 +3,21 @@
 mkdir ~/.vim_backup
 mkdir ~/.vim_tmp
 
-[ -d /data ] && DATA=/data || DATA=$HOME/mydata
+[ -d /data ] && DATA=/data || DATA=~/mydata
 APPS=$DATA/Apps
 
 [ -f $APPS/aliyunpan/aliyunpan ] && ln -s $APPS/aliyunpan/aliyunpan ~/.local/bin/
 (
 crontab -l | grep -v ^#
 cat <<EOF
-@hourly ALIYUNPAN_CONFIG_DIR=$HOME/.config/aliyunpan $APPS/aliyunpan/aliyunpan token update
+@hourly ALIYUNPAN_CONFIG_DIR=~/.config/aliyunpan $APPS/aliyunpan/aliyunpan token update
 EOF
 ) | crontab -
 
 cp -f ~/.xxinputrc ~/.xinputrc
 
 # Initialize/update submodules
-cd $HOME
+cd ~/ || exit
 echo "Initializing submodules..."
 yadm submodule update --init --recursive
 

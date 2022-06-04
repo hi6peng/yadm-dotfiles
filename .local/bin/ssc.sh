@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC2034
 # pip install --user https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
 #./shadowsocks-local-linux64-1.1.4 -c ssconfig-vps.json &
 export PATH=$HOME/.local/bin:$PATH

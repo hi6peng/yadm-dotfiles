@@ -1,14 +1,15 @@
 #!/usr/bin/sh
 # to be sourced
+# shellcheck source=/dev/null
 os_type="$(grep -oP "^ID=\"\K.*?(?=\")" /etc/os-release)";
 if [ "${os_type}" = "opensuse-leap" ]; then
   XIMFILE=/etc/X11/xim
-  test -r $HOME/.xim && XIMFILE=$HOME/.xim
-  test -r $XIMFILE && source $XIMFILE
+  test -r ~/.xim && XIMFILE=~/.xim
+  test -r $XIMFILE && . $XIMFILE
 fi
 
-#if [ -r "$HOME/.xinputrc" ]; then
-#  . $HOME/.xinputrc
+#if [ -r "~/.xinputrc" ]; then
+#  . ~/.xinputrc
 #fi
 #ubuntu
 if [ -r "/etc/X11/Xsession.d/70im-config_launch" ]; then

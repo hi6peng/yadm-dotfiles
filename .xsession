@@ -3,9 +3,10 @@
 # ~/.xinitrc
 #
 # Executed by startx (run your window manager from here)
+# shellcheck source=/dev/null
 
-userresources=$HOME/.Xresources
-usermodmap=$HOME/.Xmodmap
+userresources=~/.Xresources
+usermodmap=~/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
@@ -17,7 +18,7 @@ if [ "$STARTUP" = "--" ];then
 fi
 #STARTUP=openbox-session
 
-exec >$HOME/.xsession.log 2>&1
+exec >~/.xsession.log 2>&1
 umask 0022
 
 # merge in defaults and keymaps
@@ -45,11 +46,11 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
   unset f
 fi
 
-for i in $HOME/.sh/xinitrc.d/?* ; do
-  [ -d $i ] && continue
-  if [ -x $i ]; then
-    if grep -q "# to be sourced" $i; then
-      . $i "${SESSION}"
+for i in ~/.sh/xinitrc.d/?* ; do
+  [ -d "$i" ] && continue
+  if [ -x "$i" ]; then
+    if grep -q "# to be sourced" "$i"; then
+      . "$i" "${SESSION}"
     else
       $i "${SESSION}" &
     fi
@@ -58,9 +59,9 @@ for i in $HOME/.sh/xinitrc.d/?* ; do
 done
 
 # Local startup script
-if [ -r $HOME/.xsession.local ]; then
-  if grep -q "# to be sourced" $HOME/.xsession.local; then
-    . $HOME/.xsession.local
+if [ -r ~/.xsession.local ]; then
+  if grep -q "# to be sourced" ~/.xsession.local; then
+    . ~/.xsession.local
   fi
 fi
 
@@ -93,7 +94,7 @@ get_session(){
   echo "$xsession"
 }
 
-exec $(get_session "$SESSION")
+exec "$(get_session "$SESSION")"
 #exec $STARTUP
 #exec /usr/bin/ssh-agent $STARTUP
 

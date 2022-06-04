@@ -1,3 +1,5 @@
+# shellcheck disable=SC2034,SC1091
+# shellcheck source=/dev/null
 [[ "${_NAME_OF_THIS_LIBSCRIPT:-""}" == "yes" ]] && return 0
 _NAME_OF_THIS_LIBSCRIPT=yes
 
@@ -10,7 +12,7 @@ umask 0022
 # {{{ Includes
 
 if [ -d ~/.sh/inc ]; then
-  for rc in $HOME/.sh/inc/[0-9]*.sh; do
+  for rc in ~/.sh/inc/[0-9]*.sh; do
     # shellcheck source=/dev/null
 		if [ -f "$rc" ]; then
       . "$rc"
@@ -35,7 +37,7 @@ fi
 
 # {{{ History
 
-HISTFILE=$HOME/.bash_history
+HISTFILE=~/.bash_history
 HISTFILESIZE=5000
 HISTSIZE=5000
 HISTCONTROL=ignoredups
@@ -86,7 +88,7 @@ fi
 shopt -s histappend
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
-[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
+[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && . /usr/share/doc/fzf/examples/key-bindings.bash
 # }}}
 
 # vim:filetype=bash:tabstop=2:shiftwidth=2:fdm=marker:

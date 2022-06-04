@@ -1,6 +1,7 @@
+# shellcheck source=/dev/null
 # {{{ Bashrc
 
-. $HOME/.bashrc
+. ~/.bashrc
 
 # }}}
 

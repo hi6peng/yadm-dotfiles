@@ -6,9 +6,9 @@ umask 0022
 
 # {{{ Includes
 
-for file in "${HOME}/.sh/inc"/[0-9]*.sh; do
+for file in ~/.sh/inc/[0-9]*.sh; do
   # shellcheck source=/dev/null
-  . "${file}"
+  . "$file"
 done
 
 # }}}

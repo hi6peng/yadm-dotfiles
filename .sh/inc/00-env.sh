@@ -1,3 +1,5 @@
+#!/bin/bash
+# shellcheck source=/dev/null
 . ~/.sh/inc/functions
 
 # {{{ Vars
@@ -16,7 +18,7 @@ fi
 if [ -x /usr/libexec/path_helper ]; then
   eval "$(/usr/libexec/path_helper -s)"
 fi
-PATH="$HOME/.local/bin:$PATH"
+PATH=~/.local/bin:$PATH
 export PATH
 
 # }}}
@@ -100,19 +102,20 @@ APPS=$DATA/Apps
 # {{{ jdk, maven, nodejs, ant PATH
 
 JAVA_HOME=$APPS/jdk
-[ -d $JAVA_HOME ] && { export JAVA_HOME=$JAVA_HOME; pathedit -p $JAVA_HOME/bin; }
-[ -d $APPS/maven/bin ] && pathedit -p $APPS/maven/bin
-[ -d $APPS/nodejs/bin ] && pathedit -p $APPS/nodejs/bin
-[ -d $APPS/ant/bin ] && pathedit -p $APPS/ant/bin
-[ -d $HOME/.npm-global/bin ] && pathedit -p $HOME/.npm-global/bin
+[ -d "$JAVA_HOME" ] && { export JAVA_HOME="$JAVA_HOME"; pathedit -p "$JAVA_HOME/bin"; }
+[ -d "$APPS/maven/bin" ] && pathedit -p "$APPS/maven/bin"
+[ -d "$APPS/nodejs/bin" ] && pathedit -p "$APPS/nodejs/bin"
+[ -d "$APPS/ant/bin" ] && pathedit -p "$APPS/ant/bin"
+[ -d ~/.npm-global/bin ] && pathedit -p ~/.npm-global/bin
 
 if command -v ruby >/dev/null 2>&1; then
-  export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
-  pathedit -p $GEM_HOME/bin
+  GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+	export GEM_HOME
+  pathedit -p "$GEM_HOME/bin"
 fi
 
 if command -v go >/dev/null 2>&1; then
-  export GOPATH=$HOME/.go
+  export GOPATH=~/.go
   pathedit -p $GOPATH/bin
 fi
 
@@ -122,8 +125,8 @@ export PATH
 
 # {{{ pydev, sublime
 
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/workspace/sublime
+export WORKON_HOME=~/.virtualenvs
+export PROJECT_HOME=~/workspace/sublime
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 
 # }}}
@@ -154,6 +157,6 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
-export ALIYUNPAN_CONFIG_DIR=$HOME/.config/aliyunpan
+export ALIYUNPAN_CONFIG_DIR=~/.config/aliyunpan
 
 # vim:filetype=sh:tabstop=2:shiftwidth=2:fdm=marker:

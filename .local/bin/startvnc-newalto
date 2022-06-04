@@ -30,7 +30,7 @@ else
     echo "user $XUSER cannot connect to display $DISPLAY"
 fi
 #su - ${XUSER} -c "$VNCSERVER ${OPTIONS}"
-sudo -Hu ${XUSER} $VNCSERVER ${OPTIONS}
+sudo -Hu ${XUSER} $VNCSERVER "${OPTIONS}"
 ;;
 
 stop)
