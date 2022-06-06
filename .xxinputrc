@@ -1,6 +1,7 @@
-os=$(awk -F '=' '/^NAME/{print $2}' /etc/os-release | awk '{print $1}' | tr -d '"')
+os1=$(awk -F '=' '/^NAME/{print $2}' /etc/os-release | awk '{print $1}' | tr -d '"')
+os2=$(awk -F '=' '/^NAME/{print $2}' /etc/os-release | awk '{print $2}' | tr -d '"')
 
-if [ "$os" = "Ubuntu" ];then
+if [ "$os1" = "Ubuntu" ] || [ "$os2" = "Mint" ];then
 run_im fcitx
 else # "fedora"
 XIM=fcitx
